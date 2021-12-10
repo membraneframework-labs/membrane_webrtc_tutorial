@@ -5,7 +5,6 @@ defmodule VideoRoomWeb.PeerChannel do
 
   @impl true
   def join("room", _params, socket) do
-    send(VideoRoom.Room, {:join, self()})
     send(self(), :join)
     {:ok, socket}
   end
