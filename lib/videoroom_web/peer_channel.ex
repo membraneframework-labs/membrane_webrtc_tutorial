@@ -12,7 +12,7 @@ defmodule VideoRoomWeb.PeerChannel do
   @impl true
   def handle_info(:join, socket) do
     push(socket, "plox_send_offer_sir", %{})
-    {:ok, socket}
+    {:noreply, socket}
   end
 
   @impl true
