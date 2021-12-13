@@ -5,19 +5,20 @@ defmodule VideoRoomWeb.PeerChannel do
 
   @impl true
   def join("room", _params, socket) do
-    send(self(), :join)
+    send(VideoRoom.Room, {:join, self()})
     {:ok, socket}
   end
 
   @impl true
-  def handle_info(:join, socket) do
-    push(socket, "plox_send_offer_sir", %{})
+  def handle_in(message_type, message_payload, socket) do
+    Logger.info("Received message #{message_type}")
+    send(VideoRoom.Room, {:signal, message_type, message_payload, self()})
     {:noreply, socket}
   end
 
   @impl true
-  def handle_in(message_type, _message_payload, socket) do
-    Logger.info("Received message #{message_type}")
+  def handle_info({:signal, message_type, message_payload}, socket) do
+    push(socket, message_type, message_payload)
     {:noreply, socket}
   end
 end
