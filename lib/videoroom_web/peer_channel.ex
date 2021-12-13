@@ -11,6 +11,7 @@ defmodule VideoRoomWeb.PeerChannel do
 
   @impl true
   def handle_in(message_type, message_payload, socket) do
+    Logger.info("Received message #{message_type}")
     send(VideoRoom.Room, {:signal, message_type, message_payload, self()})
     {:noreply, socket}
   end
