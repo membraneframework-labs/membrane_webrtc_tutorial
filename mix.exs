@@ -21,11 +21,11 @@ defmodule VideoRoom.MixProject do
 
   defp deps do
     [
-      {:plug_cowboy, "~> 2.0"},
-      {:phoenix, "~> 1.6"},
+      {:plug_cowboy, "~> 2.5"},
+      {:phoenix, "~> 1.6.15"},
       {:phoenix_html, "~> 3.0"},
-      {:phoenix_live_view, "~> 0.16.0"},
-      {:phoenix_live_reload, "~> 1.2"},
+      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:jason, "~> 1.2"},
       {:phoenix_inline_svg, "~> 1.4"},
       {:uuid, "~> 1.1"}
@@ -34,12 +34,8 @@ defmodule VideoRoom.MixProject do
 
   defp aliases do
     [
-      setup: ["deps.get", "cmd --cd assets npm ci"],
-      "assets.deploy": [
-        "cmd --cd assets npm run deploy",
-        "esbuild default --minify",
-        "phx.digest"
-      ]
+      setup: ["deps.get"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end
