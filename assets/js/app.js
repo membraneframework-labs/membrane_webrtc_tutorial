@@ -1,3 +1,9 @@
+import "../css/app.css"
+
+import "phoenix_html"
+
+import { Socket } from "phoenix"
+
 // We'll put the code within an async function, so we could use await
 async function init() {
   const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -7,8 +13,8 @@ async function init() {
     peerConnection.addTrack(track, localStream);
   });
   const offer = await peerConnection.createOffer();
-  const socket = new Phoenix.Socket("/socket");
-  await socket.connect();
+  const socket = new Socket("/socket");
+  socket.connect();
   const channel = socket.channel('room');
   channel.on("plox_send_offer_sir", async (_data) => {
     channel.push("sdp_offer", offer);
@@ -24,7 +30,7 @@ async function init() {
   channel.on("ice_candidate", async (data) => await peerConnection.addIceCandidate(data));
   peerConnection.onicecandidate = (event) => channel.push("ice_candidate", event.candidate);
   peerConnection.ontrack = (event) => document.querySelector('#remote-video').srcObject = event.streams[0];
-  await channel.join();
+  channel.join();
 }
 
 init();
