@@ -1,17 +1,18 @@
-defmodule VideoRoomWeb.PeerChannel do
+defmodule WebrtcTutorialWeb.PeerChannel do
   use Phoenix.Channel
 
   require Logger
 
   @impl true
   def join("room", _params, socket) do
-    send(VideoRoom.Room, {:join, self()})
+    send(WebrtcTutorial.Room, {:join, self()})
     {:ok, socket}
   end
 
   @impl true
   def handle_in(message_type, message_payload, socket) do
-    send(VideoRoom.Room, {:signal, message_type, message_payload, self()})
+    Logger.info("Received message #{message_type}")
+    send(WebrtcTutorial.Room, {:signal, message_type, message_payload, self()})
     {:noreply, socket}
   end
 
