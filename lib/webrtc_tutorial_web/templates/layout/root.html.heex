@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <link rel="icon" type="image/svg+xml" href={Routes.static_path(@conn, "/svg/favicon.svg")} />
+    <link rel="alternate icon" type="image/png" href={Routes.static_path(@conn, "/svg/favicon.png")} />
+    <%= live_title_tag assigns[:page_title] || "WebrtcTutorial", suffix: " · Phoenix Framework" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.2.0/adapter.min.js" integrity="sha512-R0XuuF6YfKwM6HINkNBqKOM19E38ZIgve0P/k4AWPr8KjOzA8TnajJra06y9oE9+fm8/n1MmqI0zIGuVvab+CQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+    <%= @inner_content %>
+  </body>
+</html>

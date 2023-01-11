@@ -1,5 +1,9 @@
-defmodule VideoRoom.Room do
+defmodule WebrtcTutorial.Room do
   use GenServer
+
+  def start_link([]) do
+    GenServer.start_link(__MODULE__, [])
+  end
 
   @impl true
   def init(_options) do

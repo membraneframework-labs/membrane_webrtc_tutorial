@@ -1,7 +1,7 @@
-defmodule VideoRoomWeb.UserSocket do
+defmodule WebrtcTutorialWeb.UserSocket do
   use Phoenix.Socket
 
-  channel "room", VideoRoomWeb.PeerChannel
+  channel "room", WebrtcTutorialWeb.PeerChannel
 
   @impl true
   def connect(_params, socket, _connect_info) do
