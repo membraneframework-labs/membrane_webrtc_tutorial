@@ -1,34 +1,41 @@
-defmodule VideoRoom.MixProject do
+defmodule WebrtcTutorial.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :membrane_videoroom_demo,
+      app: :webrtc_tutorial,
       version: "0.1.0",
       elixir: "~> 1.12",
-      aliases: aliases(),
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
 
   def application do
     [
-      mod: {VideoRoom.Application, []},
-      extra_applications: [:logger]
+      mod: {WebrtcTutorial.Application, []},
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   defp deps do
     [
-      {:plug_cowboy, "~> 2.5"},
       {:phoenix, "~> 1.6.15"},
       {:phoenix_html, "~> 3.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:phoenix_live_reload, "~> 1.3", only: :dev},
+      {:floki, ">= 0.30.0", only: :test},
+      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:phoenix_inline_svg, "~> 1.4"},
-      {:uuid, "~> 1.1"}
+      {:plug_cowboy, "~> 2.5"}
     ]
   end
 
